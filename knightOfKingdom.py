@@ -1,6 +1,6 @@
 #knight of kingdom
 
-from re import A
+
 
 
 input_data = input()
