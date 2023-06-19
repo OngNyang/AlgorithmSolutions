@@ -57,12 +57,4 @@ int main(void)
 			break ;
 	}
 	std::cout << res << std::endl;
-
-
-	// std::cout << N << M << K << std::endl;
-	// for (int i=0; i<N; i++)
-	// {
-	// 	std::cout << arr[i] << std::endl;
-	// }
-
 }
