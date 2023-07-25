@@ -138,11 +138,10 @@ int	main(void)
 	}
 
 	std::queue<pos> q;
-	pos	now;
-	now.x = 0;
-	now.y = 0;
-	q.push(now);
-
+	pos	departure;
+	departure.x = 0;
+	departure.y = 0;
+	q.push(departure);
 	while (!q.empty())
 	{
 		pos	now = q.front();
@@ -152,9 +151,7 @@ int	main(void)
 			pos	next;
 			next.x = now.x + dx[i];
 			next.y = now.y + dy[i];
-			if(!(0 <= next.x && next.x <= N-1 && 0 <= next.y && next.y <= M-1))
-				continue ;
-			if (map[next.x][next.y] == 0)
+			if (!(0 <= next.x && next.x <= N-1 && 0 <= next.y && next.y <= M-1))
 				continue ;
 			if (map[next.x][next.y] == 1)
 			{
@@ -164,4 +161,32 @@ int	main(void)
 		}
 	}
 	std::cout << map[N-1][M-1] << std::endl;
+
+	// std::queue<pos> q;
+	// pos	now;
+	// now.x = 0;
+	// now.y = 0;
+	// q.push(now);
+
+	// while (!q.empty())
+	// {
+	// 	pos	now = q.front();
+	// 	q.pop();
+	// 	for (int i=0; i<4; i++)
+	// 	{
+	// 		pos	next;
+	// 		next.x = now.x + dx[i];
+	// 		next.y = now.y + dy[i];
+	// 		if(!(0 <= next.x && next.x <= N-1 && 0 <= next.y && next.y <= M-1))
+	// 			continue ;
+	// 		if (map[next.x][next.y] == 0)
+	// 			continue ;
+	// 		if (map[next.x][next.y] == 1)
+	// 		{
+	// 			map[next.x][next.y] = map[now.x][now.y] + 1;
+	// 			q.push(next);
+	// 		}
+	// 	}
+	// }
+	// std::cout << map[N-1][M-1] << std::endl;
 }
