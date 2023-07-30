@@ -21,91 +21,49 @@ q에 넣어야 하나?
 
 */
 
-
-
-
-
-// #include <iostream>
-// #include <vector>
-// using namespace std;
-
-
-// void generatePermutations(vector<int>& nums, vector<int>& permutation, vector<bool>& used) {
-//     // if (permutation.size() == nums.size()) { // 기저 조건: 수열의 크기와 같으면 출력
-//     //     for (int num : permutation) {
-//     //         cout << num << " ";
-//     //     }
-//     //     cout << endl;
-//     //     return;
-//     // }
-
-//     // for (int i = 0; i < nums.size(); ++i) {
-//     //     if (!used[i]) {
-//     //         used[i] = true; // 해당 원소를 사용했다고 표시
-//     //         permutation.push_back(nums[i]); // 수열에 해당 원소 추가
-//     //         generatePermutations(nums, permutation, used); // 재귀 호출
-//     //         permutation.pop_back(); // 마지막 원소 제거
-//     //         used[i] = false; // 해당 원소를 사용하지 않았다고 표시
-//     //     }
-//     // }
-// 	if (permutation.size() == nums.size())
-// 	{
-// 		for (int i=0; i<permutation.size(); i++)
-// 			std::cout << permutation[i] << " ";
-// 		// for (int num : permutation)
-// 		// 	std::cout << num << " ";
-// 		std::cout << std::endl;
-// 		return ;
-// 	}
-// 	for (int i=0; i<nums.size(); ++i)
-// 	{
-// 		if (used[i] == false)
-// 		{
-// 			used[i] = true;
-// 			permutation.push_back(nums[i]);
-// 			generatePermutations(nums, permutation, used);
-// 			permutation.pop_back();
-// 			used[i] = false;
-// 		}
-// 	}
-
-// }
-
-// int main() {
-//     vector<int> nums;
-// 	nums.push_back(1);
-// 	nums.push_back(2);
-// 	nums.push_back(3);
-
-//     vector<int> permutation;
-//     vector<bool> used(nums.size(), false);
-
-//     generatePermutations(nums, permutation, used);
-
-//     return 0;
-// }
-
-
 #include <iostream>
 #include <vector>
+#include <algorithm>
+
+std::vector<int>	vect_result;
+int	*arr_num;
+int	N;
+
+int	operation(int n1, int n2, char op)
+{
+	int	result = 0;
+
+	if (op == '+')
+		result = n1 + n2;
+	if (op == '-')
+		result = n1 - n2;
+	if (op == '*')
+		result = n1 * n2;
+	if (op == '/')
+		result = n1 / n2;
+	return (result);
+}
 
 void	generate_permutations(std::vector<char>& nums, std::vector<int>& permutation, std::vector<bool>& used)
 {
-	std::cout << permutation.size();
 	if (permutation.size() == nums.size())
 	{
-		for (int i=0; i<permutation.size(); i++)
-			std::cout << permutation[i] << " ";
-		// for (int num : permutation)
-		// 	std::cout << num << " ";
-		std::cout << std::endl;
+		// for (int i=0; i<permutation.size(); i++)
+		// 	std::cout << permutation[i] << " ";
+		// std::cout << std::endl;
+		
+		int temp = arr_num[0];
+		for (int i=0; i<N-1; i++)
+		{
+			temp = operation(temp, arr_num[i+1], permutation[i]);
+		}
+		vect_result.push_back(temp);
 		return ;
 	}
 	for (int i=0; i<nums.size(); i++)
 	{
 		if (used[i] == false)
 		{
-			std::cout << i << " ";
 			used[i] = true;
 			permutation.push_back(nums[i]);
 			generate_permutations(nums, permutation, used);
@@ -115,16 +73,15 @@ void	generate_permutations(std::vector<char>& nums, std::vector<int>& permutatio
 	}
 }
 
-
 int	main(void)
 {
-	int	N;
 	std::cin >> N;
-	int	arr_num[N];
+	// int	arr_num[N];
 	int	arr_op[4];
 	std::vector<char>	nums;
 	std::vector<int>	permutation;
-	std::vector<bool>	used(nums.size(), false);
+
+	arr_num = new int[N];
 
 	std::cin.ignore();
 	for (int i=0; i<N; i++)
@@ -143,6 +100,12 @@ int	main(void)
 	for (int j=0; j<arr_op[3]; j++)
 		nums.push_back('/');
 
+	std::vector<bool>	used(nums.size(), false);
+
+
 	generate_permutations(nums, permutation, used);
+	sort(vect_result.begin(), vect_result.end());
+	std::cout << vect_result[vect_result.size()-1] << std::endl;
+	std::cout << vect_result[0] << std::endl;
 
 }
