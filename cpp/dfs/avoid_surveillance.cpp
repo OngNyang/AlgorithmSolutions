@@ -33,8 +33,70 @@ pair 클래스
 int		N;
 char	**map;
 
-
-
+bool	watch(int i, int j)
+{
+	int	ni = i;
+	int nj = j;
+//좌
+	while (1)
+	{
+		nj--;
+		if (!(0 <= ni && ni < N && 0<= nj && nj < N))
+			break ;
+		if (map[ni][nj] == 'O')
+			break ;
+		if (map[ni][nj] == 'X')
+			continue ;
+		if (map[ni][nj] == 'S')
+			return (false);
+	}
+//우
+	ni = i;
+	nj = j;
+	while (1)
+	{
+		nj++;
+		if (!(0 <= ni && ni < N && 0<= nj && nj < N))
+			break ;
+		if (map[ni][nj] == 'O')
+			break ;
+		if (map[ni][nj] == 'X')
+			continue ;
+		if (map[ni][nj] == 'S')
+			return (false);
+	}
+//상
+	ni = i;
+	nj = j;
+	while (1)
+	{
+		ni--;
+		if (!(0 <= ni && ni < N && 0<= nj && nj < N))
+			break ;
+		if (map[ni][nj] == 'O')
+			break ;
+		if (map[ni][nj] == 'X')
+			continue ;
+		if (map[ni][nj] == 'S')
+			return (false);
+	}
+//하
+	ni = i;
+	nj = j;
+	while (1)
+	{
+		ni++;
+		if (!(0 <= ni && ni < N && 0<= nj && nj < N))
+			break ;
+		if (map[ni][nj] == 'O')
+			break ;
+		if (map[ni][nj] == 'X')
+			continue ;
+		if (map[ni][nj] == 'S')
+			return (false);
+	}
+	return (true);
+}
 
 bool	surveillance(std::vector<std::pair<int, int> >& current)
 {
@@ -45,8 +107,37 @@ bool	surveillance(std::vector<std::pair<int, int> >& current)
 			return (false);
 	}
 //map에 장애물 'O' 그리기
-//map에 장애물 'O' 지우기
+	for (int i=0; i<3; i++)
+		map[current[i].first][current[i].second] = 'O';
+//선생님의 수를 구함
+	int	num_t = 0;
+	for (int i=0; i<N; i++)
+		for (int j=0;j<N; j++)
+			if (map[i][j] == 'T')
+				num_t++;
 //map을 모두 돌며 선생을 찾고 선생마다 시선의 광선을 구현
+	int	cnt = 0;
+	for (int i=0; i<N; i++)
+	{
+		for (int j=0; j<N; j++)
+		{
+			if (map[i][j] == 'T')
+			{
+				if (watch(i, j) == true)
+					cnt++;
+			}
+		}
+	}
+	if (cnt == num_t)
+		return (true);
+	else
+	{
+//map에 장애물 'O' 지우기
+		for (int i=0; i<3; i++)
+			map[current[i].first][current[i].second] = 'X';
+		return (false);
+	}
+
 }
 
 void	combinations(int k, int start, std::vector<std::pair<int, int> >& nums, std::vector<std::pair<int, int> >& current)
