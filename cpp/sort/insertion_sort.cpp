@@ -1,8 +1,8 @@
 /*
 삽입 정렬(insertion sort)
-	: 
+	: 정렬된 부분과 안된 부분으로 나누어 정렬 안된 부분의 가장 앞의 값을 정렬된 부분에 삽입
 	- 시간 복잡도
-
+		O(N^2) ~ O(N)
 	- 사용성
 		데이터가 거의 정렬되어 있을때 매우 효율적.
 
@@ -18,7 +18,7 @@ void	insertion_sort(int *arr)
 
 	for (int i=1; i<arr_size; i++)	//정렬됐는지 인덱스
 	{
-		for (int j=i; j==0; j--)
+		for (int j=i; j != 0; j--)
 		{
 			if (arr[j] < arr[j-1])
 			{
